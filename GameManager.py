@@ -4,8 +4,6 @@ from Game import Game
 from ChessBot import RandomMoveBot
 import logging
 
-import pprint
-
 def main():
     with open('./api.token') as f:
         token = f.read()

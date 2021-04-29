@@ -2,8 +2,11 @@
 class GameFull():
     def __init__(self, data):
         
+        self.id = data['id']
         self.white_id = data['white']['id']
         self.black_id = data['black']['id']
+        self.initial_fen = data['initialFen']
+        self.variant = data['variant']['key']
 
         self.gameState = GameState(data['state'])
 
@@ -17,12 +20,10 @@ class GameState():
         self.status = data['status'] # TODO: enum?
 
         self.move_list = [] if self.moves == "" else self.moves.split(" ")
-        
-        print("SDFSDFDSFDSFSDFDSFDSF", self.move_list)
         self.num_moves = len(self.move_list)
         self.is_finished = self.status not in {"created", "started"}
-        
 
+        self.winner = data['winner'] if self.is_finished else None
 
 class ChatLine():
     def __init__(self, data):
