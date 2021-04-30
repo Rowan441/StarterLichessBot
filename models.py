@@ -23,8 +23,6 @@ class GameState():
         self.num_moves = len(self.move_list)
         self.is_finished = self.status not in {"created", "started"}
 
-        self.winner = data['winner'] if self.is_finished else None
-
 class ChatLine():
     def __init__(self, data):
         self.username = data['username']
