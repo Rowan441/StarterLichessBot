@@ -1,6 +1,7 @@
 import threading
 import berserk
 from models import GameState, ChatLine, GameFull
+import logging
 
 class Game(threading.Thread):
     def __init__(self, client, game_id, bot, **kwargs):
@@ -23,19 +24,21 @@ class Game(threading.Thread):
 
     def run(self):
         while True:
-            for event in self.stream:
-                if event['type'] == 'gameState':
-                    gameState = GameState(event)
-                    if gameState.is_finished:
-                        return
-                    self.handle_move(gameState)
-                elif event['type'] == 'chatLine':
-                    chatline = ChatLine(event)
-                    response = self.bot.getResponseToMessage(chatline)
-                    if response:
-                        self.client.bots.post_message(self.game_id, response)
-        logging.info("Finished game ID:{}".format(self.game_id))
-
+            try:
+                for event in self.stream:
+                    if event['type'] == 'gameState':
+                        gameState = GameState(event)
+                        if gameState.is_finished:
+                            logging.info("Finished game ID:{} with status: {}".format(self.game_id, gameState.status))
+                            return
+                        self.handle_move(gameState)
+                    elif event['type'] == 'chatLine':
+                        chatline = ChatLine(event)
+                        response = self.bot.getResponseToMessage(chatline)
+                        if response:
+                            self.client.bots.post_message(self.game_id, response)
+            except:
+                logging.exception("Error handling game ID:{}".format(self.game_id))
         
     def handle_move(self, gameState):
         if not self.bots_turn(gameState):
