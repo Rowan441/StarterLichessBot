@@ -31,7 +31,7 @@ def main():
                     gameData = event['game']
                     game = Game(client, gameData['id'], bot)
                     logging.info("Starting game ID:{}".format(gameData['id']))
-                    game.run()
+                    game.start()
         except Exception:
             logging.exception("Error handling event stream")
 
