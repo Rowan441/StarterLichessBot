@@ -12,9 +12,7 @@
 - [Getting Started](#getting_started)
 - [Building Your Own Bot](#build_your_own)
 - [Built Using](#built_using)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -33,6 +31,8 @@ Check out my [BOT account](https://lichess.org/@/WeirdChessBot) you can play aga
 ### Prerequisite 
 
 Make sure you have a Lichess account that you have [upgraded to a BOT account](https://lichess.org/api#operation/botAccountUpgrade) and [created a PAT](https://lichess.org/account/oauth/token) for your account
+
+### Installing
 
 First clone the repository:
 
@@ -54,6 +54,8 @@ And install the required libraries:
 ```
 pip install -r requirements.txt
 ```
+
+### API Token
 
 **Important**: then you need to create a file named `api.token` in the home directory of the project add your BOT account's [Personal API token](https://lichess.org/account/oauth/token) to the file
 
