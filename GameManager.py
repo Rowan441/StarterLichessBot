@@ -1,7 +1,7 @@
 import berserk
 import json
 from Game import Game
-from ChessBot import RandomMoveBot
+from ChessBot import RandomMoveBot # Import your bot
 import logging
 
 def main():
@@ -11,6 +11,7 @@ def main():
     session = berserk.TokenSession(token)
     client = berserk.Client(session)
 
+    #  Instantiate the bot of choice
     bot = RandomMoveBot()
 
     logging.info("Starting WeirdChessBot...")
@@ -35,6 +36,7 @@ def main():
             logging.exception("Error handling event stream")
 
 def should_accept(event):
+
     return event['challenge']['rated'] == False
 
 logging.getLogger().setLevel(logging.INFO)

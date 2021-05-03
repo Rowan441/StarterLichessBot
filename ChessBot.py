@@ -27,7 +27,7 @@ class ChessBotInterface():
     @staticmethod
     def getBoardObject(variant):
         '''
-        Returns the proper python-chess Board object for the given variant
+        Helper function that returns the proper python-chess Board object for the given variant
         '''
         if variant == "chess960":
             return chess.Board(chess960=True)
@@ -43,14 +43,15 @@ class ChessBotInterface():
             "threeCheck": chess.variant.ThreeCheckBoard
         }
 
-
         return possibleBoards[variant]()
 
 
 class RandomMoveBot(ChessBotInterface):
 
     def getBestMove(self, gameState, variant):
-
+        '''
+        Picks a random legal move and plays it
+        '''
         board = self.getBoardObject(variant)
 
         for move in gameState.move_list:
