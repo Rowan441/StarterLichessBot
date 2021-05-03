@@ -1,6 +1,8 @@
 import threading
 import berserk
+
 from models import GameState, ChatLine, GameFull
+
 import logging
 
 class Game(threading.Thread):
