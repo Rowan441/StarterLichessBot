@@ -1,11 +1,13 @@
 import json
 import berserk
+from berserk.exceptions import ResponseError
 
 from game import Game
 from chessbots import RandomMoveBot # Import your bot
 
 import argparse
 import logging
+import time
 
 def main(token):
     session = berserk.TokenSession(token)
@@ -14,7 +16,7 @@ def main(token):
     #  Instantiate the bot of choice
     bot = RandomMoveBot()
 
-    logging.info("Starting WeirdChessBot...")
+    logging.info("Starting 'Starter Lichess Bot'...")
 
     while True:
         try:
@@ -32,8 +34,16 @@ def main(token):
                     game = Game(client, gameData['id'], bot)
                     logging.info("Starting game ID:{}".format(gameData['id']))
                     game.start()
-        except Exception:
-            logging.exception("Error handling event stream")
+        except ResponseError as error:
+            if error.status_code == 401:
+                logging.critical("AUTHOIRZATION ERROR: check your API Token's scope's. Token must have bot:play and challenge:write scopes.")
+                logging.critical("Quiting program due authorization error.")
+                exit()
+            if error.status_code == 429:
+                logging.warn("RATE LIMIT ERROR: waiting 60 seconds before querying lichess again to avoid rate limiting")
+                time.sleep(60)
+            else:
+                logging.exception("{} ERROR: while handling event stream".format(error.status_code))
 
 def should_accept(event):
     '''
@@ -55,7 +65,11 @@ if __name__ == "__main__":
                         datefmt='%m-%d %H:%M',)
 
     # Read token
-    with open('./api.token') as f:
-        token = f.read()
+    try:
+        with open('./api.token') as f:
+            token = f.read()
+    except FileNotFoundError:
+        print("Could not find api.token file, make sure you have an api.token file containing your lichess account's API token")
+        exit()
 
     main(token)
