@@ -1,8 +1,8 @@
 import json
 import berserk
 
-from Game import Game
-from ChessBots import RandomMoveBot # Import your bot
+from game import Game
+from chessbots import RandomMoveBot # Import your bot
 
 import argparse
 import logging
