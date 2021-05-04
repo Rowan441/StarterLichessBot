@@ -40,7 +40,7 @@ First clone the repository:
 git clone https://github.com/Rowan441/WeirdChessBot.git
 ```
 
-Then install virtualenv:
+Then install virtualenv if you don't already have it:
 ```
 pip install virtualenv
 ```
@@ -50,14 +50,25 @@ cd into the project directory and create a virtual environment:
 virtualenv .venv
 ```
 
-And install the required libraries:
+Activate the virtual enironment:
+
+*On windows:*
+```
+.venv\Scripts\activate
+```
+*On Unix / MacOS:*
+```
+source .venv/bin/activate
+```
+
+Finally install the required libraries:
 ```
 pip install -r requirements.txt
 ```
 
 ### API Token
 
-**Important**: then you need to create a file named `api.token` in the home directory of the project add your BOT account's [Personal API token](https://lichess.org/account/oauth/token) to the file
+**Important**: you need to create a file named `api.token` in the home directory of the project add your BOT account's [Personal API token](https://lichess.org/account/oauth/token) to the file
 
 ```
 echo YOURAPITOKEN > api.token
@@ -67,7 +78,7 @@ echo YOURAPITOKEN > api.token
 
 You can create your own Bots. In this program, a Bot is defined as a class that implements: `getBestMove(self, gameState, variant)` and `getResponseToMessage(self, chatLine)` methods
 
-Checkout the `ChessBotInterface()` class in the `chessbots.py` file which you can create subclasses from and override its methods with your own funcitonality.
+Checkout the `ChessBotInterface()` class in the `chessbots.py` file for the specific details of the getBestMove and getResponseToMessage functions.  You can create subclasses from `ChessBotInterface()` and override its methods with your own funcitonality.
 
 Once you have a working bot you can tell the program to use it by:
 1. Importing the bot in `lichess-bot-manager.py`:
