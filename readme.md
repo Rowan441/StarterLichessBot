@@ -10,6 +10,7 @@
 - [About](#about)
 - [Try it out](#try)
 - [Getting Started](#getting_started)
+- [Usage](#usage)
 - [Building Your Own Bot](#build_your_own)
 - [Built Using](#built_using)
 - [Authors](#authors)
@@ -68,10 +69,21 @@ pip install -r requirements.txt
 
 ### API Token
 
-**Important**: you need to create a file named `api.token` in the home directory of the project add your BOT account's [Personal API token](https://lichess.org/account/oauth/token) to the file
+**Important**: you need to create a file named `api.token` in the root directory of the project add your BOT account's [Personal API token](https://lichess.org/account/oauth/token) to the file
 
 ```
 echo YOURAPITOKEN > api.token
+```
+
+## 🏃 Usage <a name = "usage"></a>
+
+To run the project make sure you have a Lichess account that you have [upgraded to a BOT account](https://lichess.org/api#operation/botAccountUpgrade) and added your API token to a [api.token](#api-token) file
+
+Run the `starterlichessbit.py` file with optional `--logfile` flag:
+```
+starterlichessbot.py
+OR
+starterlichessbot.py --logfile ..\logs.txt  
 ```
 
 ## 🔨 Build Your Own Bot <a name = "build_your_own"></a>
@@ -81,13 +93,13 @@ You can create your own Bots. In this program, a Bot is defined as a class that 
 Checkout the `ChessBotInterface()` class in the `chessbots.py` file for the specific details of the getBestMove and getResponseToMessage functions.  You can create subclasses from `ChessBotInterface()` and override its methods with your own funcitonality.
 
 Once you have a working bot you can tell the program to use it by:
-1. Importing the bot in `lichess-bot-manager.py`:
+1. Importing the bot in `starterlichessbot.py`:
 ```
- 6|  from chessbots import MyBotClass # Import your bot
+ 8|  from chessbots import MyBotClass # Import your bot
 ```
-2. instantiating the bot on line 17 of `lichess-bot-manager.py`
+2. instantiating the bot on line 17 of `starterlichessbot.py`
 ```
-17|  bot = MyBotClass()
+19|  bot = MyBotClass()
 ```
 In the source code this has already been done with `RandomChessBot`, so just replace `RandomChessBot` with your bot class.
 
