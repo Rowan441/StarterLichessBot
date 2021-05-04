@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import berserk
 from berserk.exceptions import ResponseError
@@ -40,7 +42,7 @@ def main(token):
                 logging.critical("Quiting program due authorization error.")
                 exit()
             if error.status_code == 429:
-                logging.warn("RATE LIMIT ERROR: waiting 60 seconds before querying lichess again to avoid rate limiting")
+                logging.warning("RATE LIMIT ERROR: waiting 60 seconds before querying lichess again to avoid rate limiting")
                 time.sleep(60)
             else:
                 logging.exception("{} ERROR: while handling event stream".format(error.status_code))
@@ -66,7 +68,7 @@ if __name__ == "__main__":
 
     # Read token
     try:
-        with open('./api.token') as f:
+        with open('../api.token') as f:
             token = f.read()
     except FileNotFoundError:
         print("Could not find api.token file, make sure you have an api.token file containing your lichess account's API token")
